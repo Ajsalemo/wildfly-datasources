@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# /subsystem=logging/logger=com.wildfly.springboot:add 
+# # Add a category for 'stdout', otherwise stdout from print statements or others from the application may not show
+# /subsystem=logging/logger=stdout:add
+# /subsystem=logging/logger=com.wildfly.springboot:write-attribute(name="level", value="INFO") 
+# /subsystem=logging/logger=com.wildfly.springboot:write-attribute(name="use-parent-handlers", value="true") 
+# /subsystem=logging/logger=stdout:write-attribute(name="level", value="INFO") 
+# /subsystem=logging/logger=stdout:write-attribute(name="use-parent-handlers", value="true") 
+
+module add --name=org.postgres --resources=/opt/jboss/wildfly/modules/postgresql-42.7.3.jar --module-xml=/opt/jboss/wildfly/standalone/configuration/postgres-module.xml
+
+/subsystem=datasources/jdbc-driver=postgres:add(driver-name="postgres",driver-module-name="org.postgres",driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+data-source add --name=postgresDS --driver-name=postgres --jndi-name=java:jboss/datasources/postgresDS --connection-url=${POSTGRES_CONNECTION_URL,env.POSTGRES_CONNECTION_URL:jdbc:postgresql://db:5432/postgres} --user-name=${POSTGRES_SERVER_ADMIN_FULL_NAME,env.POSTGRES_SERVER_ADMIN_FULL_NAME:postgres} --password=${POSTGRES_SERVER_ADMIN_PASSWORD,env.POSTGRES_SERVER_ADMIN_PASSWORD:example} --use-ccm=true --max-pool-size=5 --blocking-timeout-wait-millis=5000 --enabled=true --driver-class=org.postgresql.Driver --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter --jta=true --use-java-context=true --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker
+

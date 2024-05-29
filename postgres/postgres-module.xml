@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<module xmlns="urn:jboss:module:1.1" name="org.postgres">
+    <resources>
+    <!-- ***** IMPORTANT : REPLACE THIS PLACEHOLDER *******-->
+    <!-- ***** NOTE : If this doesn't match the location we add the .jar to on the filesystem, it will throw `WFLYJCA0041: Failed to load module for driver [org.postgres]`*******-->
+    <resource-root path="/opt/jboss/wildfly/modules/postgresql-42.7.3.jar" />
+    </resources>
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.transaction.api"/>
+    </dependencies>
+</module>
