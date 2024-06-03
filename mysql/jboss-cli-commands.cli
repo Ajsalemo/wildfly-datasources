@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+module add --name=com.mysql --resources=/opt/jboss/wildfly/modules/mysql-connector-j-8.4.0.jar --module-xml=/opt/jboss/wildfly/standalone/configuration/mysql-module.xml
+
+/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-class-name=com.mysql.Driver,driver-class-name=com.mysql.cj.jdbc.Driver)
+
+data-source add --name=mysqlDS --driver-name=mysql --jndi-name=java:jboss/datasources/mysqlDS --connection-url=${MYSQL_CONNECTION_URL,env.MYSQL_CONNECTION_URL:jdbc:mysql://db:5432/mysql} --user-name=${MYSQL_SERVER_ADMIN_FULL_NAME,env.MYSQL_SERVER_ADMIN_FULL_NAME:mysql} --password=${MYSQL_SERVER_ADMIN_PASSWORD,env.MYSQL_SERVER_ADMIN_PASSWORD:example} --use-ccm=true --max-pool-size=5 --blocking-timeout-wait-millis=5000 --enabled=true --driver-class=com.mysql.cj.jdbc.Driver --exception-sorter-class-name=com.mysql.cj.jdbc.integration.jboss.ExtendedMysqlExceptionSorter --jta=true --use-java-context=true
+

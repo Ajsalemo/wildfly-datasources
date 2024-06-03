@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-# /subsystem=logging/logger=com.wildfly.springboot:add 
-# # Add a category for 'stdout', otherwise stdout from print statements or others from the application may not show
-# /subsystem=logging/logger=stdout:add
-# /subsystem=logging/logger=com.wildfly.springboot:write-attribute(name="level", value="INFO") 
-# /subsystem=logging/logger=com.wildfly.springboot:write-attribute(name="use-parent-handlers", value="true") 
-# /subsystem=logging/logger=stdout:write-attribute(name="level", value="INFO") 
-# /subsystem=logging/logger=stdout:write-attribute(name="use-parent-handlers", value="true") 
-
 module add --name=org.postgres --resources=/opt/jboss/wildfly/modules/postgresql-42.7.3.jar --module-xml=/opt/jboss/wildfly/standalone/configuration/postgres-module.xml
 
 /subsystem=datasources/jdbc-driver=postgres:add(driver-name="postgres",driver-module-name="org.postgres",driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
