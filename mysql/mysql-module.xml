@@ -2,7 +2,7 @@
 <module xmlns="urn:jboss:module:1.1" name="com.mysql">
     <resources>
     <!-- ***** IMPORTANT : REPLACE THIS PLACEHOLDER *******-->
-    <!-- ***** NOTE : If this doesn't match the location we add the .jar to on the filesystem, it will throw `WFLYJCA0041: Failed to load module for driver [org.mysql]`*******-->
+    <!-- ***** NOTE : If this doesn't match the location we add the .jar to on the filesystem, it will throw `WFLYJCA0041: Failed to load module for driver [com.mysql]`*******-->
     <resource-root path="/opt/jboss/wildfly/modules/mysql-connector-j-8.4.0.jar" />
     </resources>
     <dependencies>
